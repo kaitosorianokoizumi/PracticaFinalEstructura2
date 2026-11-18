@@ -7,6 +7,11 @@
     ORG    $1000
     
     INCLUDE "SYSCONST.X68"
+    INCLUDE "SYSTEM.X68"
+    INCLUDE "SYSVAR.X68"
+    INCLUDE "VARS.X68"
+    INCLUDE "CONST.X68"
+    
     
 START:                  ; first instruction of program
 

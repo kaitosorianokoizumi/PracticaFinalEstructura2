@@ -4,7 +4,8 @@
 ;-- SCREEN RELATED CONSTANTS --
 
 SCRWIDTH    EQU 700
-SCRHEIGHT   EQU 600
+SCRHEIGH    EQU 600
+
 
 
 *~Font name~Courier New~
