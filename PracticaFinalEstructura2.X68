@@ -1,20 +1,32 @@
 *-----------------------------------------------------------
-* Title      : 
+* Title      :
 * Written by :
 * Date       :
 * Description:
 *-----------------------------------------------------------
     ORG    $1000
+    
 START:                  ; first instruction of program
 
-* Put program code here
+    ;-- INICIALIZATION --
+           
 
-    SIMHALT             ; halt simulator
+.LOOP
+    ;-- UPDATE -- 
+    
+    ;READ INPUT DEVICES
+    
+    ;UPDATE GAME LOGIC
+    
+    ;-- SYNC --
+    
+    ;-- PLOT --
+    
+    BRA .LOOP
 
-* Put variables and constants here
+    SIMHALT
 
-    END    START        ; last line of source
-
+    END    START        
 
 *~Font name~Courier New~
 *~Font size~10~
