@@ -6,6 +6,8 @@
 *-----------------------------------------------------------
     ORG    $1000
     
+    INCLUDE "SYSCONST.X68"
+    
 START:                  ; first instruction of program
 
     ;-- INICIALIZATION --
@@ -27,6 +29,7 @@ START:                  ; first instruction of program
     SIMHALT
 
     END    START        
+
 
 *~Font name~Courier New~
 *~Font size~10~
