@@ -1,6 +1,6 @@
-0000108E Starting Address
+000010D6 Starting Address
 Assembler used: EASy68K Editor/Assembler v5.16.01
-Created On: 23/11/2026 19:52:50
+Created On: 23/11/2026 21:17:44
 
 00000000                             1  *-----------------------------------------------------------
 00000000                             2  * Title      :
@@ -157,40 +157,114 @@ Created On: 23/11/2026 19:52:50
 00001086  4E4F                     153          TRAP    #15
 00001088                           154          
 00001088  4CDF 021F                155          MOVEM.L (A7)+,D0-D4/A1
-0000108C                           156          
-0000108C  4E75                     157          RTS
-0000108E                           158              
-0000108E                           159  
-0000108E                           160  
-0000108E                           161  -------------------- end include --------------------
-0000108E                           162      
-0000108E                           163  START:                  ; first instruction of program
-0000108E                           164  
-0000108E                           165      ;-- INICIALIZATION --
-0000108E  4EB8 1006                166      JSR SYSINIT       
-00001092                           167  
-00001092                           168  .LOOP
-00001092                           169      ;-- UPDATE -- 
-00001092                           170      
-00001092                           171      ;READ INPUT DEVICES
-00001092                           172      
-00001092                           173      ;UPDATE GAME LOGIC
-00001092                           174      
-00001092                           175      ;-- SYNC --
-00001092                           176      
-00001092                           177      ;-- PLOT --
-00001092                           178      
-00001092                           179      ; CODIGO DE PRUEBA PARA PINTAR EL BOTON
-00001092                           180      
-00001092  4EB8 103C                181      JSR STBTNPLOT
-00001096  103C 005E                182      MOVE.B  #94, D0
-0000109A  4E4F                     183      TRAP #15
-0000109C                           184      
-0000109C  60F4                     185      BRA .LOOP
-0000109E                           186  
-0000109E  FFFF FFFF                187      SIMHALT
-000010A2                           188  
-000010A2                           189      END    START        
+0000108C  4E75                     156          RTS
+0000108E                           157              
+0000108E                           158  ; ----------------------------------------------------------
+0000108E                           159  STBTNCLICK
+0000108E                           160  ; COMPRUEBA SI EL BOTON START HA SIDO PULSADO
+0000108E                           161  ; INPUT    : NADA
+0000108E                           162  ; OUTPUT   : D0 = 0 SI NO ESTA PULSADO, D0 = 1 SI LO ESTA
+0000108E                           163  ; MODIFICA : NADA
+0000108E                           164  ; ----------------------------------------------------------
+0000108E                           165              
+0000108E  48E7 6000                166              MOVEM.L D1-D2, -(A7)
+00001092                           167              
+00001092                           168  ; COMPRUEBA SI EL CLICK IZQUIERDO ESTA PULSADO
+00001092  103C 003D                169              MOVE.B  #61, D0
+00001096  7200                     170              MOVEQ   #0, D1
+00001098  4E4F                     171              TRAP    #15
+0000109A  0800 0000                172              BTST    #0, D0
+0000109E                           173              ; SI NO ESTA PULSADO, SALTA AL FINAL
+0000109E  6700 002E                174              BEQ     STBTNNOCLICK
+000010A2                           175              ; USAREMOS CMP, ASI QUE NOS INTERESA TENER
+000010A2                           176              ; LAS COORDENADAS EN LA PALABRA INFERIOR
+000010A2                           177              ; COLOCAMOS LA COORDENADA Y DEL RATON EN D2
+000010A2                           178              ; Y LA COORDENADA X EN LA PALABRA INFERIOR DE D1
+000010A2  2401                     179              MOVE.L  D1, D2
+000010A4                           180              ; PARA MOVER LA COORDENADA Y A LA PALABRA
+000010A4                           181              ; INFERIOR, USAMOS LSR
+000010A4                           182              ; LSR SOLO DEJA 8 BITS, 
+000010A4                           183              ; ASI QUE LO USAMOS DOS VECES
+000010A4  E08A                     184              LSR.L    #8, D2
+000010A6  E08A                     185              LSR.L    #8, D2
+000010A8                           186              
+000010A8                           187              ; SI ESTA PULSADO, COMPRUEBA SI ESTA EN EL BOTON
+000010A8                           188              ; COMPROBANDO SI ESTA EN LAS COORDENADAS QUE CUBRE
+000010A8                           189              ; EL BOTON
+000010A8  B27C 015E                190              CMP.W   #STBTNX1, D1
+000010AC  6D00 0020                191              BLT     STBTNNOCLICK
+000010B0  B47C 0113                192              CMP.W   #STBTNY1, D2
+000010B4  6D00 0018                193              BLT     STBTNNOCLICK
+000010B8  B27C 01C2                194              CMP.W   #STBTNX2, D1
+000010BC  6E00 0010                195              BGT     STBTNNOCLICK
+000010C0  B47C 0145                196              CMP.W   #STBTNY2, D2
+000010C4  6E00 0008                197              BGT     STBTNNOCLICK
+000010C8                           198              
+000010C8  7001                     199              MOVEQ   #1, D0
+000010CA  6000 0004                200              BRA STBTNCLICKEND
+000010CE                           201  STBTNNOCLICK
+000010CE  7000                     202              MOVEQ   #0, D0
+000010D0                           203  STBTNCLICKEND
+000010D0                           204  
+000010D0  4CDF 0006                205              MOVEM.L (A7)+, D1-D2
+000010D4  4E75                     206              RTS
+000010D6                           207              
+000010D6                           208  
+000010D6                           209  
+000010D6                           210  -------------------- end include --------------------
+000010D6                           211      
+000010D6                           212  START:                  ; first instruction of program
+000010D6                           213  
+000010D6                           214      ;-- INICIALIZATION --
+000010D6  4EB8 1006                215      JSR SYSINIT       
+000010DA                           216  
+000010DA                           217  .LOOP
+000010DA                           218      ;-- UPDATE -- 
+000010DA                           219      
+000010DA                           220      ;READ INPUT DEVICES
+000010DA  4EB8 108E                221      JSR STBTNCLICK
+000010DE                           222      ;UPDATE GAME LOGIC
+000010DE                           223      
+000010DE                           224      ;-- SYNC --
+000010DE                           225      
+000010DE                           226      ;-- PLOT --
+000010DE                           227      
+000010DE                           228      ; CODIGO DE PRUEBA PARA PINTAR EL BOTON
+000010DE                           229      
+000010DE  4EB8 103C                230      JSR STBTNPLOT
+000010E2                           231      
+000010E2                           232      ; SI EL BOTON ESTA PULSADO, PINTA UN CUADRADO ROJO EN LA ESQUINA
+000010E2  B07C 0000                233      CMP #0, D0
+000010E6  6700 000C                234      BEQ  .NOPINTAR
+000010EA  223C 000000FF            235      MOVE.L  #$000000FF, D1
+000010F0  6000 0004                236      BRA .ACABARPRUEBA
+000010F4                           237      
+000010F4                           238      
+000010F4                           239      ; SI NO TIENE QUE PINTAR, RELLENA DE NEGRO EL ESPACIO DE ANTES
+000010F4                           240  .NOPINTAR
+000010F4  7200                     241      MOVE.L  #$00000000, D1
+000010F6                           242      
+000010F6                           243  .ACABARPRUEBA
+000010F6  103C 0051                244      MOVE.B  #81, D0
+000010FA  4E4F                     245      TRAP    #15
+000010FC  323C 0000                246      MOVE.W  #0, D1
+00001100  343C 0000                247      MOVE.W  #0, D2
+00001104  363C 0064                248      MOVE.W  #100, D3
+00001108  383C 0064                249      MOVE.W  #100, D4
+0000110C  103C 0057                250      MOVE.B  #87, D0
+00001110  4E4F                     251      TRAP    #15
+00001112                           252      
+00001112                           253      
+00001112                           254      
+00001112                           255      
+00001112  103C 005E                256      MOVE.B  #94, D0
+00001116  4E4F                     257      TRAP #15
+00001118                           258      
+00001118  60C0                     259      BRA .LOOP
+0000111A                           260  
+0000111A  FFFF FFFF                261      SIMHALT
+0000111E                           262  
+0000111E                           263      END    START        
 
 No errors detected
 No warnings generated
@@ -204,12 +278,17 @@ CHARWIDTH           8
 SCRHEIGH            258
 SCRINIT             100E
 SCRWIDTH            320
-START               108E
-START:LOOP          1092
+START               10D6
+START:ACABARPRUEBA  10F6
+START:LOOP          10DA
+START:NOPINTAR      10F4
 STBTNBDCLR          C0C0C0
 STBTNBGCLR          FFFFFF
+STBTNCLICK          108E
+STBTNCLICKEND       10D0
 STBTNHEIGH          32
 STBTNLEN            5
+STBTNNOCLICK        10CE
 STBTNPLOT           103C
 STBTNTXT            1000
 STBTNTXTCLR         0

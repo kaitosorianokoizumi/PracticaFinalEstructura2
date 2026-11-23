@@ -41,8 +41,57 @@ STBTNPLOT
         TRAP    #15
         
         MOVEM.L (A7)+,D0-D4/A1
-        
         RTS
+            
+; ----------------------------------------------------------
+STBTNCLICK
+; COMPRUEBA SI EL BOTON START HA SIDO PULSADO
+; INPUT    : NADA
+; OUTPUT   : D0 = 0 SI NO ESTA PULSADO, D0 = 1 SI LO ESTA
+; MODIFICA : NADA
+; ----------------------------------------------------------
+            
+            MOVEM.L D1-D2, -(A7)
+            
+; COMPRUEBA SI EL CLICK IZQUIERDO ESTA PULSADO
+            MOVE.B  #61, D0
+            MOVEQ   #0, D1
+            TRAP    #15
+            BTST    #0, D0
+            ; SI NO ESTA PULSADO, SALTA AL FINAL
+            BEQ     STBTNNOCLICK
+            ; USAREMOS CMP, ASI QUE NOS INTERESA TENER
+            ; LAS COORDENADAS EN LA PALABRA INFERIOR
+            ; COLOCAMOS LA COORDENADA Y DEL RATON EN D2
+            ; Y LA COORDENADA X EN LA PALABRA INFERIOR DE D1
+            MOVE.L  D1, D2
+            ; PARA MOVER LA COORDENADA Y A LA PALABRA
+            ; INFERIOR, USAMOS LSR
+            ; LSR SOLO DEJA 8 BITS, 
+            ; ASI QUE LO USAMOS DOS VECES
+            LSR.L    #8, D2
+            LSR.L    #8, D2
+            
+            ; SI ESTA PULSADO, COMPRUEBA SI ESTA EN EL BOTON
+            ; COMPROBANDO SI ESTA EN LAS COORDENADAS QUE CUBRE
+            ; EL BOTON
+            CMP.W   #STBTNX1, D1
+            BLT     STBTNNOCLICK
+            CMP.W   #STBTNY1, D2
+            BLT     STBTNNOCLICK
+            CMP.W   #STBTNX2, D1
+            BGT     STBTNNOCLICK
+            CMP.W   #STBTNY2, D2
+            BGT     STBTNNOCLICK
+            
+            MOVEQ   #1, D0
+            BRA STBTNCLICKEND
+STBTNNOCLICK
+            MOVEQ   #0, D0
+STBTNCLICKEND
+
+            MOVEM.L (A7)+, D1-D2
+            RTS
             
 
 

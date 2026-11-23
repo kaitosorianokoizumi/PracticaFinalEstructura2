@@ -1,6 +1,6 @@
-0000106C Starting Address
+0000108E Starting Address
 Assembler used: EASy68K Editor/Assembler v5.16.01
-Created On: 23/11/2026 18:29:07
+Created On: 23/11/2026 20:32:57
 
 00000000                             1  *-----------------------------------------------------------
 00000000                             2  ; START BUTTON
@@ -14,7 +14,7 @@ Created On: 23/11/2026 18:29:07
 00000000                            10  ; MODIFICA : NADA
 00000000                            11  ; ----------------------------------------------------------
 00000000                            12  
-00000000  48E7 F800                 13          MOVEM.L D0-D4, -(A7)
+00000000  48E7 F840                 13          MOVEM.L D0-D4/A1, -(A7)
 00000004                            14          
 00000004                            15  ; COLOR DE FONDO
 Line 16 ERROR: Undefined symbol
@@ -26,30 +26,97 @@ Line 20 ERROR: Undefined symbol
 00000010  223C 004DBD16             20          MOVE.L  #STBTNBDCLR, D1
 00000016  103C 0050                 21          MOVE.B  #80, D0
 0000001A  4E4F                      22          TRAP    #15
-0000001C                            23  ; PINTAR EL RECTANGULO DEL BOTON
+0000001C                            23  ; COLOR DEL TEXTO
 Line 24 ERROR: Undefined symbol
-0000001C  323C BD16                 24          MOVE.W  #STBTNX1, D1
-Line 25 ERROR: Undefined symbol
-00000020  343C BD16                 25          MOVE.W  #STBTNY1, D2
-Line 26 ERROR: Undefined symbol
-00000024  363C BD16                 26          MOVE.W  #STBTNX2, D3
-Line 27 ERROR: Undefined symbol
-00000028  383C BD16                 27          MOVE.W  #STBTNY2, D4
-0000002C  103C 0057                 28          MOVE.B  #87, D0
-00000030  4E4F                      29          TRAP    #15
-00000032                            30          
-00000032  4CDF 001F                 31          MOVEM.L (A7)+,D0-D4
-00000036                            32          
-00000036  4E75                      33          RTS
-00000038                            34              
-00000038                            35  
-Line 36 WARNING: END directive missing, starting address not set
+0000001C  223C 004DBD16             24          MOVE.L  #STBTNTXTCLR, D1
+00000022  103C 0015                 25          MOVE.B  #21, D0
+00000026  4E4F                      26          TRAP    #15
+00000028                            27  ; PINTAR EL RECTANGULO DEL BOTON
+Line 28 ERROR: Undefined symbol
+00000028  323C BD16                 28          MOVE.W  #STBTNX1, D1
+Line 29 ERROR: Undefined symbol
+0000002C  343C BD16                 29          MOVE.W  #STBTNY1, D2
+Line 30 ERROR: Undefined symbol
+00000030  363C BD16                 30          MOVE.W  #STBTNX2, D3
+Line 31 ERROR: Undefined symbol
+00000034  383C BD16                 31          MOVE.W  #STBTNY2, D4
+00000038  103C 0057                 32          MOVE.B  #87, D0
+0000003C  4E4F                      33          TRAP    #15
+0000003E                            34         
+0000003E                            35  ; PINTAR TEXTO
+Line 36 ERROR: Undefined symbol
+0000003E  43F9 004DBD16             36          LEA     STBTNTXT, A1
+00000044                            37          ; CENTRAR EL TEXTO EN EL RECTANGULO
+Line 38 ERROR: Invalid syntax
+00000044                            38          MOVE.W  #STBTNX1+(STBTNWIDTH-STBTNTXTWIDTH)/2, D1
+Line 39 ERROR: Invalid syntax
+00000044                            39          MOVE.W  #STBTNY1+(STBTNHEIGH-CHARHEIGH)/2, D2
+00000044  103C 005F                 40          MOVE.B  #95, D0
+00000048  4E4F                      41          TRAP    #15
+0000004A                            42          
+0000004A  4CDF 021F                 43          MOVEM.L (A7)+,D0-D4/A1
+0000004E  4E75                      44          RTS
+00000050                            45              
+00000050                            46  ; ----------------------------------------------------------
+Line 47 ERROR: Symbol value differs between first and second pass
+00000050                            47  STBTNCLICK
+00000050                            48  ; COMPRUEBA SI EL BOTON START HA SIDO PULSADO
+00000050                            49  ; INPUT    : NADA
+00000050                            50  ; OUTPUT   : D0 = 0 SI NO ESTA PULSADO, D0 = 1 SI LO ESTA
+00000050                            51  ; MODIFICA : NADA
+00000050                            52  ; ----------------------------------------------------------
+00000050                            53              
+00000050  48E7 6000                 54              MOVEM.L D1-D2, -(A7)
+00000054                            55              
+00000054                            56  ; COMPRUEBA SI EL CLICK IZQUIERDO ESTA PULSADO
+00000054  103C 003D                 57              MOVE.B  #61, D0
+00000058  7200                      58              MOVEQ   #0, D1
+0000005A  4E4F                      59              TRAP    #15
+0000005C  0800 0000                 60              BTST    #0, D0
+00000060                            61              ; COLOCAMOS LA COORDENADA Y DEL RATON EN D2
+00000060                            62              ; Y LA COORDENADA X EN LA PALABRA INFERIOR DE D1
+00000060  2401                      63              MOVE.L  D1, D2
+Line 64 ERROR: Invalid constant shift count
+00000062  E049                      64              LSR     #16, D1
+00000064                            65              
+00000064                            66              ; SI NO ESTA PULSADO, SALTA AL FINAL
+00000064  6700 0030                 67              BEQ     STBTNNOCLICK
+00000068                            68              ; SI ESTA PULSADO, COMPRUEBA SI ESTA EN EL BOTON
+Line 69 ERROR: Undefined symbol
+00000068  B27C BD16                 69              CMP.W   #STBTNX1, D1
+0000006C  6D00 0028                 70              BLT     STBTNNOCLICK
+Line 71 ERROR: Undefined symbol
+00000070  B47C BD16                 71              CMP.W   #STBTNY1, D2
+00000074  6D00 0020                 72              BLT     STBTNNOCLICK
+Line 73 ERROR: Undefined symbol
+00000078  B27C BD16                 73              CMP.W   #STBTNX2, D1
+0000007C  6E00 0018                 74              BGT     STBTNNOCLICK
+Line 75 ERROR: Undefined symbol
+00000080  B47C BD16                 75              CMP.W   #STBTNY2, D2
+00000084  6E00 0010                 76              BGT     STBTNNOCLICK
+00000088                            77              
+00000088  7001                      78              MOVEQ   #1, D0
+0000008A  6000 000C                 79              BRA STBTNCLICKEND
+Line 80 ERROR: Symbol value differs between first and second pass
+0000008E                            80  STBTNNOCLICK
+0000008E  7000                      81              MOVEQ   #0, D0
+Line 82 ERROR: Symbol value differs between first and second pass
+00000090                            82  STBTNCLICKEND
+00000090                            83  
+00000090  4CDF 0006                 84              MOVEM.L (A7)+, D1-D2
+00000094  4E75                      85              RTS
+00000096                            86              
+00000096                            87  
+Line 88 WARNING: END directive missing, starting address not set
 
-6 errors detected
+18 errors detected
 1 warning generated
 
 
 SYMBOL TABLE INFORMATION
 Symbol-name         Value
 -------------------------
+STBTNCLICK          58
+STBTNCLICKEND       98
+STBTNNOCLICK        96
 STBTNPLOT           0
