@@ -1,0 +1,55 @@
+0000106C Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 23/11/2026 18:29:07
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  ; START BUTTON
+00000000                             3  *-----------------------------------------------------------
+00000000                             4  
+00000000                             5  ; ----------------------------------------------------------
+00000000                             6  STBTNPLOT
+00000000                             7  ; PINTA EL BOTON DE START
+00000000                             8  ; INPUT    : NADA
+00000000                             9  ; OUTPUT   : NADA
+00000000                            10  ; MODIFICA : NADA
+00000000                            11  ; ----------------------------------------------------------
+00000000                            12  
+00000000  48E7 F800                 13          MOVEM.L D0-D4, -(A7)
+00000004                            14          
+00000004                            15  ; COLOR DE FONDO
+Line 16 ERROR: Undefined symbol
+00000004  223C 004DBD16             16          MOVE.L  #STBTNBGCLR, D1
+0000000A  103C 0051                 17          MOVE.B  #81, D0
+0000000E  4E4F                      18          TRAP    #15
+00000010                            19  ; COLOR DEL BORDE
+Line 20 ERROR: Undefined symbol
+00000010  223C 004DBD16             20          MOVE.L  #STBTNBDCLR, D1
+00000016  103C 0050                 21          MOVE.B  #80, D0
+0000001A  4E4F                      22          TRAP    #15
+0000001C                            23  ; PINTAR EL RECTANGULO DEL BOTON
+Line 24 ERROR: Undefined symbol
+0000001C  323C BD16                 24          MOVE.W  #STBTNX1, D1
+Line 25 ERROR: Undefined symbol
+00000020  343C BD16                 25          MOVE.W  #STBTNY1, D2
+Line 26 ERROR: Undefined symbol
+00000024  363C BD16                 26          MOVE.W  #STBTNX2, D3
+Line 27 ERROR: Undefined symbol
+00000028  383C BD16                 27          MOVE.W  #STBTNY2, D4
+0000002C  103C 0057                 28          MOVE.B  #87, D0
+00000030  4E4F                      29          TRAP    #15
+00000032                            30          
+00000032  4CDF 001F                 31          MOVEM.L (A7)+,D0-D4
+00000036                            32          
+00000036  4E75                      33          RTS
+00000038                            34              
+00000038                            35  
+Line 36 WARNING: END directive missing, starting address not set
+
+6 errors detected
+1 warning generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+STBTNPLOT           0

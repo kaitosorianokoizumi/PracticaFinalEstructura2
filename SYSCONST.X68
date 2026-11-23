@@ -3,8 +3,9 @@
 *-----------------------------------------------------------
 ;-- SCREEN RELATED CONSTANTS --
 
-SCRWIDTH    EQU 700
+SCRWIDTH    EQU 800
 SCRHEIGH    EQU 600
+
 
 
 

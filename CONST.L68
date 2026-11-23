@@ -1,0 +1,60 @@
+0000108E Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 23/11/2026 19:50:24
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  ; CONSTANTES DEL JUEGO
+00000000                             3  *-----------------------------------------------------------
+00000000                             4  
+00000000                             5  ; ----------------------------------------------------------
+00000000                             6  ; CONSTANTES RELACIONADAS A BOTONES
+00000000                             7  ; ----------------------------------------------------------
+00000000                             8  
+00000000  =00000008                  9  CHARWIDTH       EQU     8
+00000000  =00000010                 10  CHARHEIGH       EQU     16
+00000000                            11  
+00000000                            12  ; START
+00000000                            13  
+00000000                            14  ; COLORES DEL FONDO Y DEL TEXTO
+00000000  =00FFFFFF                 15  STBTNBGCLR      EQU     $00FFFFFF
+00000000  =00C0C0C0                 16  STBTNBDCLR      EQU     $00C0C0C0
+00000000  =00000000                 17  STBTNTXTCLR     EQU     $00000000
+00000000                            18  ; TAMAÑO Y COORDENADAS
+00000000  =00000064                 19  STBTNWIDTH      EQU     100
+00000000  =00000032                 20  STBTNHEIGH      EQU     50
+Line 21 ERROR: Invalid syntax
+00000000                            21  STBTNX1         EQU     (SCRWIDTH-STBTNWIDTH)/2   
+Line 22 ERROR: Invalid syntax
+00000000                            22  STBTNY1         EQU     (SCRHEIGH-STBTNHEIGH)/2
+Line 23 ERROR: Invalid syntax
+00000000                            23  STBTNX2         EQU     (SCRWIDTH+STBTNWIDTH)/2
+Line 24 ERROR: Invalid syntax
+00000000                            24  STBTNY2         EQU     (SCRHEIGH+STBTNHEIGH)/2
+00000000                            25  ; TEXTO DEL BOTON
+00000000= 53 54 41 52 54 00         26  STBTNTXT        DC.B    'START', 0
+00000006  =00000005                 27  STBTNLEN        EQU     5
+00000006  =00000028                 28  STBTNTXTWIDTH   EQU     CHARWIDTH*STBTNLEN
+00000006                            29  
+00000006                            30       
+00000006                            31  
+00000006                            32  
+00000006                            33  
+Line 34 WARNING: END directive missing, starting address not set
+
+4 errors detected
+1 warning generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+CHARHEIGH           10
+CHARWIDTH           8
+STBTNBDCLR          C0C0C0
+STBTNBGCLR          FFFFFF
+STBTNHEIGH          32
+STBTNLEN            5
+STBTNTXT            0
+STBTNTXTCLR         0
+STBTNTXTWIDTH       28
+STBTNWIDTH          64

@@ -1,24 +1,29 @@
 *-----------------------------------------------------------
-;SYSTEM
+; SYSTEM
 *-----------------------------------------------------------
 
 ; ----------------------------------------------------------
 SYSINIT
-; INITIALIZE SYSTEM.
-; INPUT    : NONE
-; OUTPUT   : NONE
-; MODIFIES : NONE
+; INICIALIZA EL SISTEMA
+; INPUT    : NADA
+; OUTPUT   : NADA
+; MODIFICA : NADA
 ; ----------------------------------------------------------
 
             JSR SCRINIT
             
-            RTE
+            RTS
             
 ; ----------------------------------------------------------            
 SCRINIT
-; INICIALIZAR PANTALLA. PONER LA RESOLUCION CORRECTA, EL MODO VENTANA Y LIMPIAR
-; LA PANTALLA
-
+; INICIALIZAR PANTALLA. PONER LA RESOLUCION CORRECTA, 
+; EL MODO VENTANA, LIMPIAR LA PANTALLA E INICIALIZAR
+; EL DOBLE BUFFER
+; INPUT     : NADA
+; OUTPUT    : NADA
+; MODIFICA  : NADA
+; ----------------------------------------------------------   
+            
             MOVEM.L D0-D1, -(A7)
             
             ; RESOLUCION
@@ -32,13 +37,18 @@ SCRINIT
             
             ; LIMPIAR
             MOVE.B #11, D0
-            MOVE.W #FF00, D1
+            MOVE.W #$FF00, D1
             TRAP #15
             
-            MOVEM.L +(A7), D0-D1
+            ; INICIALIZAR EL DOBLE BUFFER
+            MOVE.B #92, D0
+            MOVE.B #17, D1
+            TRAP #15
+                        
+            MOVEM.L (A7)+,D0-D1
             RTS
-            
 ; ----------------------------------------------------------
+
 *~Font name~Courier New~
 *~Font size~10~
 *~Tab type~1~

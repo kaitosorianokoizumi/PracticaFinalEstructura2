@@ -6,17 +6,17 @@
 *-----------------------------------------------------------
     ORG    $1000
     
+    INCLUDE "CONST.X68"
     INCLUDE "SYSCONST.X68"
     INCLUDE "SYSTEM.X68"
     INCLUDE "SYSVAR.X68"
     INCLUDE "VARS.X68"
-    INCLUDE "CONST.X68"
-    
+    INCLUDE "STARTBUTTON.X68"
     
 START:                  ; first instruction of program
 
     ;-- INICIALIZATION --
-           
+    JSR SYSINIT       
 
 .LOOP
     ;-- UPDATE -- 
@@ -29,11 +29,16 @@ START:                  ; first instruction of program
     
     ;-- PLOT --
     
+    ; CODIGO DE PRUEBA PARA PINTAR EL BOTON
+    
+    JSR STBTNPLOT
+    
     BRA .LOOP
 
     SIMHALT
 
     END    START        
+
 
 
 *~Font name~Courier New~

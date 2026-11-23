@@ -1,0 +1,222 @@
+0000108E Starting Address
+Assembler used: EASy68K Editor/Assembler v5.16.01
+Created On: 23/11/2026 19:52:50
+
+00000000                             1  *-----------------------------------------------------------
+00000000                             2  * Title      :
+00000000                             3  * Written by :
+00000000                             4  * Date       :
+00000000                             5  * Description:
+00000000                             6  *-----------------------------------------------------------
+00001000                             7      ORG    $1000
+00001000                             8      
+00001000                             9      INCLUDE "SYSCONST.X68"
+00001000                            10  ;SYSTEM CONSTANTS
+00001000                            11  ;-- SCREEN RELATED CONSTANTS --
+00001000                            12  
+00001000  =00000320                 13  SCRWIDTH    EQU 800
+00001000  =00000258                 14  SCRHEIGH    EQU 600
+00001000                            15  
+00001000                            16  
+00001000                            17  
+00001000                            18  
+00001000                            19  -------------------- end include --------------------
+00001000                            20      INCLUDE "CONST.X68"
+00001000                            21  ; CONSTANTES DEL JUEGO
+00001000                            22  
+00001000                            23  ; ----------------------------------------------------------
+00001000                            24  ; CONSTANTES RELACIONADAS A BOTONES
+00001000                            25  ; ----------------------------------------------------------
+00001000                            26  
+00001000  =00000008                 27  CHARWIDTH       EQU     8
+00001000  =00000010                 28  CHARHEIGH       EQU     16
+00001000                            29  
+00001000                            30  ; START
+00001000                            31  
+00001000                            32  ; COLORES DEL FONDO Y DEL TEXTO
+00001000  =00FFFFFF                 33  STBTNBGCLR      EQU     $00FFFFFF
+00001000  =00C0C0C0                 34  STBTNBDCLR      EQU     $00C0C0C0
+00001000  =00000000                 35  STBTNTXTCLR     EQU     $00000000
+00001000                            36  ; TAMAÑO Y COORDENADAS
+00001000  =00000064                 37  STBTNWIDTH      EQU     100
+00001000  =00000032                 38  STBTNHEIGH      EQU     50
+00001000  =0000015E                 39  STBTNX1         EQU     (SCRWIDTH-STBTNWIDTH)/2   
+00001000  =00000113                 40  STBTNY1         EQU     (SCRHEIGH-STBTNHEIGH)/2
+00001000  =000001C2                 41  STBTNX2         EQU     (SCRWIDTH+STBTNWIDTH)/2
+00001000  =00000145                 42  STBTNY2         EQU     (SCRHEIGH+STBTNHEIGH)/2
+00001000                            43  ; TEXTO DEL BOTON
+00001000= 53 54 41 52 54 00         44  STBTNTXT        DC.B    'START', 0
+00001006  =00000005                 45  STBTNLEN        EQU     5
+00001006  =00000028                 46  STBTNTXTWIDTH   EQU     CHARWIDTH*STBTNLEN
+00001006                            47  
+00001006                            48       
+00001006                            49  
+00001006                            50  
+00001006                            51  
+00001006                            52  
+00001006                            53  -------------------- end include --------------------
+00001006                            54      INCLUDE "SYSTEM.X68"
+00001006                            55  ; SYSTEM
+00001006                            56  
+00001006                            57  ; ----------------------------------------------------------
+00001006                            58  SYSINIT
+00001006                            59  ; INICIALIZA EL SISTEMA
+00001006                            60  ; INPUT    : NADA
+00001006                            61  ; OUTPUT   : NADA
+00001006                            62  ; MODIFICA : NADA
+00001006                            63  ; ----------------------------------------------------------
+00001006                            64  
+00001006  4EB9 0000100E             65              JSR SCRINIT
+0000100C                            66              
+0000100C  4E75                      67              RTS
+0000100E                            68              
+0000100E                            69  ; ----------------------------------------------------------            
+0000100E                            70  SCRINIT
+0000100E                            71  ; INICIALIZAR PANTALLA. PONER LA RESOLUCION CORRECTA, 
+0000100E                            72  ; EL MODO VENTANA, LIMPIAR LA PANTALLA E INICIALIZAR
+0000100E                            73  ; EL DOBLE BUFFER
+0000100E                            74  ; INPUT     : NADA
+0000100E                            75  ; OUTPUT    : NADA
+0000100E                            76  ; MODIFICA  : NADA
+0000100E                            77  ; ----------------------------------------------------------   
+0000100E                            78              
+0000100E  48E7 C000                 79              MOVEM.L D0-D1, -(A7)
+00001012                            80              
+00001012                            81              ; RESOLUCION
+00001012  103C 0021                 82              MOVE.B #33, D0
+00001016  223C 03200258             83              MOVE.L #SCRWIDTH<<16|SCRHEIGH, D1
+0000101C  4E4F                      84              TRAP #15
+0000101E                            85              
+0000101E                            86              ; MODO VENTANA
+0000101E  7201                      87              MOVE.L #1, D1
+00001020  4E4F                      88              TRAP #15
+00001022                            89              
+00001022                            90              ; LIMPIAR
+00001022  103C 000B                 91              MOVE.B #11, D0
+00001026  323C FF00                 92              MOVE.W #$FF00, D1
+0000102A  4E4F                      93              TRAP #15
+0000102C                            94              
+0000102C                            95              ; INICIALIZAR EL DOBLE BUFFER
+0000102C  103C 005C                 96              MOVE.B #92, D0
+00001030  123C 0011                 97              MOVE.B #17, D1
+00001034  4E4F                      98              TRAP #15
+00001036                            99                          
+00001036  4CDF 0003                100              MOVEM.L (A7)+,D0-D1
+0000103A  4E75                     101              RTS
+0000103C                           102  ; ----------------------------------------------------------
+0000103C                           103  
+0000103C                           104  -------------------- end include --------------------
+0000103C                           105      INCLUDE "SYSVAR.X68"
+0000103C                           106  ;SYSTEM VARIABLES
+0000103C                           107  
+0000103C                           108  
+0000103C                           109  -------------------- end include --------------------
+0000103C                           110      INCLUDE "VARS.X68"
+0000103C                           111  ;VARIABLES
+0000103C                           112  
+0000103C                           113  -------------------- end include --------------------
+0000103C                           114      INCLUDE "STARTBUTTON.X68"
+0000103C                           115  ; START BUTTON
+0000103C                           116  
+0000103C                           117  ; ----------------------------------------------------------
+0000103C                           118  STBTNPLOT
+0000103C                           119  ; PINTA EL BOTON DE START
+0000103C                           120  ; INPUT    : NADA
+0000103C                           121  ; OUTPUT   : NADA
+0000103C                           122  ; MODIFICA : NADA
+0000103C                           123  ; ----------------------------------------------------------
+0000103C                           124  
+0000103C  48E7 F840                125          MOVEM.L D0-D4/A1, -(A7)
+00001040                           126          
+00001040                           127  ; COLOR DE FONDO
+00001040  223C 00FFFFFF            128          MOVE.L  #STBTNBGCLR, D1
+00001046  103C 0051                129          MOVE.B  #81, D0
+0000104A  4E4F                     130          TRAP    #15
+0000104C                           131  ; COLOR DEL BORDE
+0000104C  223C 00C0C0C0            132          MOVE.L  #STBTNBDCLR, D1
+00001052  103C 0050                133          MOVE.B  #80, D0
+00001056  4E4F                     134          TRAP    #15
+00001058                           135  ; COLOR DEL TEXTO
+00001058  7200                     136          MOVE.L  #STBTNTXTCLR, D1
+0000105A  103C 0015                137          MOVE.B  #21, D0
+0000105E  4E4F                     138          TRAP    #15
+00001060                           139  ; PINTAR EL RECTANGULO DEL BOTON
+00001060  323C 015E                140          MOVE.W  #STBTNX1, D1
+00001064  343C 0113                141          MOVE.W  #STBTNY1, D2
+00001068  363C 01C2                142          MOVE.W  #STBTNX2, D3
+0000106C  383C 0145                143          MOVE.W  #STBTNY2, D4
+00001070  103C 0057                144          MOVE.B  #87, D0
+00001074  4E4F                     145          TRAP    #15
+00001076                           146         
+00001076                           147  ; PINTAR TEXTO
+00001076  43F8 1000                148          LEA     STBTNTXT, A1
+0000107A                           149          ; CENTRAR EL TEXTO EN EL RECTANGULO
+0000107A  323C 017C                150          MOVE.W  #STBTNX1+(STBTNWIDTH-STBTNTXTWIDTH)/2, D1
+0000107E  343C 0124                151          MOVE.W  #STBTNY1+(STBTNHEIGH-CHARHEIGH)/2, D2
+00001082  103C 005F                152          MOVE.B  #95, D0
+00001086  4E4F                     153          TRAP    #15
+00001088                           154          
+00001088  4CDF 021F                155          MOVEM.L (A7)+,D0-D4/A1
+0000108C                           156          
+0000108C  4E75                     157          RTS
+0000108E                           158              
+0000108E                           159  
+0000108E                           160  
+0000108E                           161  -------------------- end include --------------------
+0000108E                           162      
+0000108E                           163  START:                  ; first instruction of program
+0000108E                           164  
+0000108E                           165      ;-- INICIALIZATION --
+0000108E  4EB8 1006                166      JSR SYSINIT       
+00001092                           167  
+00001092                           168  .LOOP
+00001092                           169      ;-- UPDATE -- 
+00001092                           170      
+00001092                           171      ;READ INPUT DEVICES
+00001092                           172      
+00001092                           173      ;UPDATE GAME LOGIC
+00001092                           174      
+00001092                           175      ;-- SYNC --
+00001092                           176      
+00001092                           177      ;-- PLOT --
+00001092                           178      
+00001092                           179      ; CODIGO DE PRUEBA PARA PINTAR EL BOTON
+00001092                           180      
+00001092  4EB8 103C                181      JSR STBTNPLOT
+00001096  103C 005E                182      MOVE.B  #94, D0
+0000109A  4E4F                     183      TRAP #15
+0000109C                           184      
+0000109C  60F4                     185      BRA .LOOP
+0000109E                           186  
+0000109E  FFFF FFFF                187      SIMHALT
+000010A2                           188  
+000010A2                           189      END    START        
+
+No errors detected
+No warnings generated
+
+
+SYMBOL TABLE INFORMATION
+Symbol-name         Value
+-------------------------
+CHARHEIGH           10
+CHARWIDTH           8
+SCRHEIGH            258
+SCRINIT             100E
+SCRWIDTH            320
+START               108E
+START:LOOP          1092
+STBTNBDCLR          C0C0C0
+STBTNBGCLR          FFFFFF
+STBTNHEIGH          32
+STBTNLEN            5
+STBTNPLOT           103C
+STBTNTXT            1000
+STBTNTXTCLR         0
+STBTNTXTWIDTH       28
+STBTNWIDTH          64
+STBTNX1             15E
+STBTNX2             1C2
+STBTNY1             113
+STBTNY2             145
+SYSINIT             1006
