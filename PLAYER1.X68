@@ -1,5 +1,6 @@
 ; PLAYER1
 ; Inicializar, mover con el teclado y dibujar el cubo que representa al luchador.
+; porhjfqbfhqbefv
 
 ; ----------------------------------------------------------
 ; Coloca el cubo en su posicion inicial en pantalla
