@@ -44,7 +44,15 @@ KEY_RIGHT     EQU      'D'
 KEY_UP        EQU      'W'
 KEY_DOWN      EQU      'S'
 
+; Constantes del cubo (fighter)
+ANCHO_CUBO      EQU     50              ; Ancho del cubo en pixeles
+ALTO_CUBO       EQU     90              ; Alto del cubo en pixeles
+VELOCIDAD_CUBO  EQU     5               ; Desplazamiento en pixeles por ciclo
 
+TECLA_IZQ       EQU     'A'             ; Codigo ASCII mover izquierda
+TECLA_DER       EQU     'D'             ; Codigo ASCII mover derecha
+TECLA_ARR       EQU     'W'             ; Codigo ASCII mover arriba
+TECLA_ABA       EQU     'S'             ; Codigo ASCII mover abajo
 
 *~Font name~Courier New~
 *~Font size~10~
