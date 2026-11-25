@@ -12,6 +12,7 @@
     INCLUDE "SYSVAR.X68"
     INCLUDE "VARS.X68"
     INCLUDE "STARTBUTTON.X68"
+    INCLUDE "PLAYER1.X68"
     
 START:                  ; first instruction of program
 
@@ -65,6 +66,7 @@ START:                  ; first instruction of program
     SIMHALT
 
     END    START        
+
 
 
 
