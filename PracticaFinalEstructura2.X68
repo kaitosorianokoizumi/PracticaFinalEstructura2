@@ -1,10 +1,11 @@
 *-----------------------------------------------------------
-* Title      :
-* Written by :
-* Date       :
-* Description:
+; Title      : Street Fighter (Base Cubo)
+; Written by :
+; Date       :
+; Description: Bucle principal con boton Start y cubo movil.
 *-----------------------------------------------------------
-    
+    ORG     $1000
+
     INCLUDE "SYSCONST.X68"
     INCLUDE "CONST.X68"
     INCLUDE "SYSTEM.X68"
@@ -12,47 +13,45 @@
     INCLUDE "VARS.X68"
     INCLUDE "STARTBUTTON.X68"
     INCLUDE "PLAYER1.X68"
-    
-START:                  ; first instruction of program
 
-    ;-- INICIALIZATION --
+START:                  ; Primera instruccion del programa
+
+    ;-- INICIALIZACION --
     JSR     SYSINIT
     JSR     INICIALIZAR_CUBO
 
-.LOOP
-    ;-- UPDATE -- 
-    
-    ; READ INPUT DEVICES
+BUCLE_PRINCIPAL:
+    ;-- UPDATE --
+    ; Leer dispositivos de entrada
     JSR     STBTNCLICK
-    ; UPDATE GAME LOGIC
+    ; Actualizar logica del juego
     JSR     MOVER_CUBO
-    
-    ;-- SYNC --
-    
-    ;-- PLOT --
 
-    ; LIMPIAR BUFFER OCULTO ANTES DE REDIBUJAR EL FRAME
+    ;-- SYNC --
+
+    ;-- PLOT --
+    ; Limpiar buffer oculto antes de redibujar el frame
     MOVE.B  #11, D0
     MOVE.W  #$FF00, D1
     TRAP    #15
-    
-    ; CODIGO DE PRUEBA PARA PINTAR EL BOTON
+
+    ; Codigo de prueba para pintar el boton
     JSR     STBTNPLOT
 
-    ; PINTAR EL CUBO LUCHADOR
+    ; Pintar el cubo luchador
     JSR     DIBUJAR_CUBO
-    
-    ; SI EL BOTON ESTA PULSADO, PINTA UN CUADRADO ROJO EN LA ESQUINA
+
+    ; Si el boton esta pulsado, pinta un cuadrado rojo en la esquina
     CMP.W   #0, D0
-    BEQ     .NOPINTAR
+    BEQ     NO_PINTAR_CUADRO
     MOVE.L  #$000000FF, D1
-    BRA     .ACABARPRUEBA
-    
-    ; SI NO TIENE QUE PINTAR, RELLENA DE NEGRO EL ESPACIO DE ANTES
-.NOPINTAR
+    BRA     FIN_PRUEBA_CUADRO
+
+    ; Si no esta pulsado, rellena de negro el espacio anterior
+NO_PINTAR_CUADRO:
     MOVE.L  #$00000000, D1
-    
-.ACABARPRUEBA
+
+FIN_PRUEBA_CUADRO:
     MOVE.B  #81, D0
     TRAP    #15
     MOVE.W  #0, D1
@@ -62,14 +61,13 @@ START:                  ; first instruction of program
     MOVE.B  #87, D0
     TRAP    #15
 
-    ; VOLCAR BUFFER OCULTO A PANTALLA
+    ; Volcar buffer oculto a pantalla
     MOVE.B  #94, D0
     TRAP    #15
-    
-    BRA     .LOOP
+
+    BRA     BUCLE_PRINCIPAL
 
     SIMHALT
-
     END     START
 
 *~Font name~Courier New~
