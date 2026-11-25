@@ -47,9 +47,9 @@ COMPROBAR_DER
 
             MOVE.W  (POS_X), D2
             ADD.W   #VELOCIDAD_CUBO, D2     ; Mover hacia la derecha (sumar X)
-            CMP.W   #SCRWIDTH-ANCHO_CUBO, D2 ; Comprobar borde derecho
+            CMP.W   #SCRWIDTH_ANCHO_CUBO, D2 ; Comprobar borde derecho
             BLE.S   GUARDAR_DER             ; Si cabe en pantalla, guardar
-            MOVE.W  #SCRWIDTH-ANCHO_CUBO, D2 ; Fijar en el limite derecho
+            MOVE.W  #SCRWIDTH_ANCHO_CUBO, D2 ; Fijar en el limite derecho
 
 GUARDAR_DER
             MOVE.W  D2, (POS_X)             ; Guardar nueva posicion X
@@ -81,9 +81,9 @@ COMPROBAR_DOWN
 
             MOVE.W  (POS_Y), D2
             ADD.W   #VELOCIDAD_CUBO, D2     ; Mover hacia abajo (sumar Y)
-            CMP.W   #SCRHEIGH-ALTO_CUBO, D2 ; Comprobar borde inferior
+            CMP.W   #SCRHEIGH_ALTO_CUBO, D2 ; Comprobar borde inferior
             BLE.S   GUARDAR_ABA             ; Si cabe en pantalla, guardar
-            MOVE.W  #SCRHEIGH-ALTO_CUBO, D2 ; Fijar en el limite inferior
+            MOVE.W  #SCRHEIGH_ALTO_CUBO, D2 ; Fijar en el limite inferior
 
 GUARDAR_ABA
             MOVE.W  D2, (POS_Y)             ; Guardar nueva posicion Y
