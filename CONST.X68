@@ -30,21 +30,8 @@ STBTNLEN        EQU     5
 STBTNTXTWIDTH   EQU     CHARWIDTH*STBTNLEN
 
 ; ----------------------------------------------------------
-; CONSTANTES RELACIONADAS AL JUGADOR (CUBO)
+; CONSTANTES RELACIONADAS AL PLAYER (CUBO)
 ; ----------------------------------------------------------
-; Constantes del cubo
-CUBE_W       EQU     40      ; Ancho del cubo (futuro sprite)
-CUBE_H       EQU     80      ; Alto del cubo (futuro sprite)
-CUBE_SPEED   EQU     6       ; Píxels por fotograma al moverse
-GROUND_Y     EQU     400     ; Altura del suelo (coord Y)
-     
-; Teclas para movimiento
-KEY_LEFT      EQU      'A'
-KEY_RIGHT     EQU      'D'
-KEY_UP        EQU      'W'
-KEY_DOWN      EQU      'S'
-
-; Constantes del cubo (fighter)
 ANCHO_CUBO      EQU     50              ; Ancho del cubo en pixeles
 ALTO_CUBO       EQU     90              ; Alto del cubo en pixeles
 VELOCIDAD_CUBO  EQU     5               ; Desplazamiento en pixeles por ciclo
