@@ -15,6 +15,11 @@ P1Y         DS.W    1
 P2X         DS.W    1
 P2Y         DS.W    1
 
+*-----------------------------------------------------------
+;CUBO VARIABLE
+*-----------------------------------------------------------
+POS_X           DS.W    1               ; Coordenada X actual del cubo
+POS_Y           DS.W    1               ; Coordenada Y actual del cubo
 
 *~Font name~Courier New~
 *~Font size~10~
