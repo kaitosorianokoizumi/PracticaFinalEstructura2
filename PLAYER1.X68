@@ -110,7 +110,7 @@ DIBUJAR_CUBO
             TRAP    #15
 
             ; Calcular esquinas del rectangulo:
-            ; (D1, D2) = superior izquierda | (D3, D4) = inferior derecha
+            ; (D1, D2) = superior izquierda (D3, D4) = inferior derecha
             MOVE.W  (POS_X), D1
             MOVE.W  (POS_Y), D2
             MOVE.W  D1, D3
