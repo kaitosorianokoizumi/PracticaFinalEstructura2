@@ -32,12 +32,17 @@ STBTNTXTWIDTH   EQU     CHARWIDTH*STBTNLEN
 ; ----------------------------------------------------------
 ; CONSTANTES RELACIONADAS AL JUGADOR (CUBO)
 ; ----------------------------------------------------------
-CUBE_W      EQU     40      ; Ancho del cubo (futuro sprite)
+; Constantes del cubo
+CUBE_W       EQU     40      ; Ancho del cubo (futuro sprite)
 CUBE_H       EQU     80      ; Alto del cubo (futuro sprite)
 CUBE_SPEED   EQU     6       ; Píxels por fotograma al moverse
 GROUND_Y     EQU     400     ; Altura del suelo (coord Y)
      
-
+; Teclas para movimiento
+KEY_LEFT      EQU      'A'
+KEY_RIGHT     EQU      'D'
+KEY_UP        EQU      'W'
+KEY_DOWN      EQU      'S'
 
 
 
