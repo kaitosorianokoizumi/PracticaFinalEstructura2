@@ -1,8 +1,8 @@
 *-----------------------------------------------------------
-; Title      : Street Fighter (Base Cubo)
+; Title      :
 ; Written by :
 ; Date       :
-; Description: Bucle principal con boton Start y cubo movil.
+; Description:
 *-----------------------------------------------------------
     ORG     $1000
 
